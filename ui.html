@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     :root {
       --bg: #0a0a0f;
       --card: #111118;
@@ -18,7 +18,7 @@
       --green: #10b981;
       --purple: #8b5cf6;
     }
-    
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
@@ -26,9 +26,9 @@
       min-height: 100vh;
       padding: 40px 20px;
     }
-    
+
     .container { max-width: 600px; margin: 0 auto; }
-    
+
     h1 {
       font-size: clamp(32px, 6vw, 48px);
       font-weight: 700;
@@ -39,14 +39,14 @@
       text-align: center;
       margin-bottom: 8px;
     }
-    
+
     .subtitle {
       text-align: center;
       color: var(--text-muted);
       font-size: 16px;
       margin-bottom: 40px;
     }
-    
+
     .drop-zone {
       background: var(--card);
       border: 2px dashed var(--border);
@@ -57,32 +57,32 @@
       transition: all 0.3s ease;
       margin-bottom: 20px;
     }
-    
-    .drop-zone:hover { 
+
+    .drop-zone:hover {
       border-color: var(--gold);
       background: rgba(244,180,0,0.05);
     }
-    
+
     .drop-zone.dragover {
       transform: scale(1.02);
       box-shadow: 0 0 30px rgba(244,180,0,0.2);
     }
-    
+
     .upload-icon { font-size: 48px; margin-bottom: 16px; }
-    
-    .drop-zone h3 { 
-      font-size: 20px; 
-      font-weight: 600; 
+
+    .drop-zone h3 {
+      font-size: 20px;
+      font-weight: 600;
       margin-bottom: 8px;
     }
-    
-    .drop-zone p { 
-      color: var(--text-muted); 
+
+    .drop-zone p {
+      color: var(--text-muted);
       font-size: 14px;
     }
-    
-    #file-input { display: none; }
-    
+
+    #fileInput { display: none; }
+
     .btn-analyze {
       width: 100%;
       padding: 16px;
@@ -94,26 +94,32 @@
       font-weight: 600;
       cursor: pointer;
       display: none;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    
-    .btn-analyze:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(244,180,0,0.3); }
-    
-    .results { 
-      display: none; 
-      background: var(--card); 
-      border-radius: 20px; 
-      padding: 32px; 
+
+    .btn-analyze:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(244,180,0,0.3);
+    }
+
+    .btn-analyze:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .results {
+      display: none;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 32px;
       margin-top: 24px;
       border: 1px solid var(--border);
     }
-    
+
     .results.show { display: block; animation: slideUp 0.5s ease; }
-    
+
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    
+
     .result-row {
       display: flex;
       justify-content: space-between;
@@ -121,9 +127,9 @@
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
     }
-    
+
     .result-row:last-child { border-bottom: none; padding-bottom: 0; }
-    
+
     .result-label {
       font-size: 14px;
       color: var(--text-muted);
@@ -131,12 +137,12 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
+
     .result-value {
       font-size: 18px;
       font-weight: 600;
     }
-    
+
     .role-display {
       background: linear-gradient(135deg, var(--purple), #a78bfa);
       -webkit-background-clip: text;
@@ -145,8 +151,8 @@
       font-size: 24px;
       font-weight: 700;
     }
-    
-    .confidence {
+
+    .confidence-badge {
       background: rgba(16,185,129,0.15);
       color: var(--green);
       padding: 4px 12px;
@@ -154,14 +160,14 @@
       font-size: 13px;
       font-weight: 500;
     }
-    
+
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 12px;
       margin-top: 20px;
     }
-    
+
     .skill-tag {
       background: rgba(244,180,0,0.15);
       color: var(--gold);
@@ -171,7 +177,151 @@
       font-size: 14px;
       font-weight: 500;
     }
-    
+
+    /* ── Chart section ── */
+    .chart-wrap {
+      display: none;
+      margin-top: 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+    .chart-wrap.show { display: block; }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .chart-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .chart-expand-btn {
+      background: rgba(244,180,0,0.12);
+      border: 1px solid rgba(244,180,0,0.3);
+      color: var(--gold);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .chart-expand-btn:hover { background: rgba(244,180,0,0.22); }
+
+    .chart-canvas-wrap {
+      position: relative;
+      background: #0d0d14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .chart-canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .chart-hint {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      opacity: 0.6;
+    }
+
+    /* ── Modal / Lightbox ── */
+    .chart-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.88);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.2s ease;
+    }
+    .chart-modal.open { display: flex; }
+    @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+    .modal-inner {
+      position: relative;
+      background: #0f0f18;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 28px;
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: scaleIn 0.25s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes scaleIn { from { transform:scale(0.93); opacity:0 } to { transform:scale(1); opacity:1 } }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .modal-title span {
+      color: var(--gold);
+    }
+    .modal-close {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .modal-close:hover { background: rgba(239,68,68,0.15); color: #f87171; }
+
+    .modal-canvas-wrap {
+      background: #0a0a0f;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .modal-canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* base64 image fallback row */
+    .chart-img-wrap {
+      display: none;
+      margin-top: 12px;
+    }
+    .chart-img-wrap.show { display: block; }
+    .chart-img-wrap img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
     .error {
       background: rgba(239,68,68,0.15);
       border: 1px solid rgba(239,68,68,0.3);
@@ -182,7 +332,7 @@
       margin-top: 20px;
       display: none;
     }
-    
+
     @media (max-width: 480px) {
       .result-row { flex-direction: column; align-items: flex-start; gap: 8px; }
       .result-value { font-size: 20px; }
@@ -191,139 +341,361 @@
 </head>
 <body>
   <div class="container">
-    <h1>Resume<span style="color: var(--gold);">IQ</span></h1>
+    <h1>ResumeIQ</h1>
     <p class="subtitle">Drop your resume for instant AI analysis</p>
-    
+
     <div class="drop-zone" id="dropZone">
       <div class="upload-icon">📄</div>
       <h3>Drop resume here</h3>
-      <p>PDF, DOC, DOCX, TXT • Click to browse</p>
-      <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+      <p>PDF, DOC, DOCX, TXT · Click to browse</p>
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt"/>
     </div>
-    
+
     <button class="btn-analyze" id="analyzeBtn">✦ Analyze Resume ✦</button>
-    
+
     <div class="error" id="errorMsg"></div>
-    
+
     <div class="results" id="results">
+
+      <!-- Filename -->
       <div class="result-row">
         <span class="result-label">Filename</span>
-        <span class="result-value" id="filename">--</span>
+        <span class="result-value" id="res-filename">--</span>
       </div>
-      
+
+      <!-- Predicted Role — from predicted_role -->
       <div class="result-row">
         <span class="result-label">Predicted Role</span>
-        <span class="result-value role-display" id="role">--</span>
+        <span class="result-value role-display" id="res-role">--</span>
       </div>
-      
+
+      <!-- Top Confidence — from role_confidence -->
       <div class="result-row">
         <span class="result-label">Confidence</span>
-        <span class="result-value confidence" id="confidence">--</span>
+        <span class="result-value">
+          <span class="confidence-badge" id="res-confidence">--</span>
+        </span>
       </div>
-      
+
+      <!-- Skills count — from skills_found -->
       <div class="result-row">
         <span class="result-label">Skills Found</span>
-        <span class="result-value" id="skillsCount">--</span>
+        <span class="result-value" id="res-skills-count">--</span>
       </div>
-      
-      <div class="skills-grid" id="skillsList"></div>
+
+      <!-- Skills tags — from skills_found -->
+      <div class="skills-grid" id="res-skills-list"></div>
+
+      <!-- Chart section: canvas from role_confidence + base64 fallback -->
+      <div class="chart-wrap" id="chart-wrap">
+        <div class="chart-header">
+          <span class="chart-label">Role Confidence Chart</span>
+          <button class="chart-expand-btn" id="chart-expand-btn">&#x26F6; Expand</button>
+        </div>
+        <div class="chart-canvas-wrap" id="chart-canvas-wrap" title="Click to expand">
+          <canvas id="chart-canvas"></canvas>
+        </div>
+        <div class="chart-img-wrap" id="chart-img-wrap">
+          <img id="chart-img" alt="Role confidence chart"/>
+        </div>
+        <p class="chart-hint">&#x1F50D; Click chart to view fullscreen</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Fullscreen modal -->
+  <div class="chart-modal" id="chart-modal">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <span class="modal-title">Role <span>Confidence</span> Breakdown</span>
+        <button class="modal-close" id="modal-close">&#x2715;</button>
+      </div>
+      <div class="modal-canvas-wrap">
+        <canvas id="chart-canvas-modal"></canvas>
+      </div>
     </div>
   </div>
 
   <script>
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('fileInput');
+    const dropZone   = document.getElementById('dropZone');
+    const fileInput  = document.getElementById('fileInput');
     const analyzeBtn = document.getElementById('analyzeBtn');
-    const results = document.getElementById('results');
-    const errorMsg = document.getElementById('errorMsg');
-    
+    const results    = document.getElementById('results');
+    const errorMsg   = document.getElementById('errorMsg');
+
     let selectedFile = null;
-    
-    // Drop zone events
+
+    /* ── Drop zone ── */
     dropZone.addEventListener('click', () => fileInput.click());
+
     dropZone.addEventListener('dragover', e => {
       e.preventDefault();
       dropZone.classList.add('dragover');
     });
+
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+
     dropZone.addEventListener('drop', e => {
       e.preventDefault();
       dropZone.classList.remove('dragover');
       const file = e.dataTransfer.files[0];
-      if (file && isValidFile(file)) handleFile(file);
+      if (file) handleFile(file);
     });
-    
+
     fileInput.addEventListener('change', () => {
       if (fileInput.files[0]) handleFile(fileInput.files[0]);
     });
-    
-    function isValidFile(file) {
-      const validTypes = ['.pdf', '.doc', '.docx', '.txt'];
-      return validTypes.some(type => file.name.toLowerCase().endsWith(type.slice(1)));
-    }
-    
+
     function handleFile(file) {
       selectedFile = file;
       analyzeBtn.style.display = 'block';
       hideError();
       results.classList.remove('show');
     }
-    
+
+    /* ── Analyze ── */
     analyzeBtn.addEventListener('click', async () => {
       if (!selectedFile) return;
-      
-      analyzeBtn.disabled = true;
-      analyzeBtn.textContent = 'Analyzing...';
+
+      analyzeBtn.disabled    = true;
+      analyzeBtn.textContent = 'Analyzing…';
       hideError();
       results.classList.remove('show');
-      
+
       try {
         const formData = new FormData();
         formData.append('file', selectedFile);
-        
+
         const response = await fetch('http://127.0.0.1:8081/upload', {
           method: 'POST',
           body: formData
         });
-        
-        if (!response.ok) throw new Error('Server error');
-        
+
+        if (!response.ok) throw new Error('Server returned ' + response.status);
+
         const data = await response.json();
         displayResults(data);
-        
-      } catch (error) {
-        showError('Failed to analyze. Is server running on port 8081?');
+
+      } catch (err) {
+        showError(err.message || 'Failed to analyze. Is the server running on port 8081?');
       } finally {
-        analyzeBtn.disabled = false;
+        analyzeBtn.disabled    = false;
         analyzeBtn.textContent = '✦ Analyze Resume ✦';
       }
     });
-    
+
+    /* ── Render — only reads backend keys ── */
     function displayResults(data) {
-      document.getElementById('filename').textContent = data.filename || 'Unknown';
-      document.getElementById('role').textContent = data.predicted_role || 'Not detected';
-      
-      const confidence = data.role_confidence ? 
-        Object.values(data.role_confidence)[0]?.toFixed(1) + '%' : '--';
-      document.getElementById('confidence').textContent = confidence;
-      
-      const skills = data.skills_found || [];
-      document.getElementById('skillsCount').textContent = skills.length + ' skills';
-      
-      const skillsList = document.getElementById('skillsList');
-      skillsList.innerHTML = skills.map(skill => 
-        `<div class="skill-tag">${skill}</div>`
-      ).join('');
-      
+      const fmt = s => String(s || '').replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+      /* Filename */
+      document.getElementById('res-filename').textContent = data.filename || '--';
+
+      /* predicted_role */
+      document.getElementById('res-role').textContent =
+        data.predicted_role ? fmt(data.predicted_role) : '--';
+
+      /* role_confidence — show score of predicted role, else top score */
+      const roleConf  = data.role_confidence && typeof data.role_confidence === 'object'
+        ? data.role_confidence : {};
+      const predicted = data.predicted_role || '';
+      let confScore   = null;
+
+      if (predicted && roleConf[predicted] != null) {
+        confScore = Number(roleConf[predicted]);
+      } else {
+        const vals = Object.values(roleConf).map(Number);
+        if (vals.length) confScore = Math.max(...vals);
+      }
+
+      document.getElementById('res-confidence').textContent =
+        confScore !== null ? confScore.toFixed(2) : '--';
+
+      /* skills_found */
+      const skills = Array.isArray(data.skills_found) ? data.skills_found : [];
+      document.getElementById('res-skills-count').textContent =
+        skills.length > 0 ? skills.length + ' skill' + (skills.length !== 1 ? 's' : '') : '0 skills';
+
+      const skillsList = document.getElementById('res-skills-list');
+      skillsList.innerHTML = skills.length
+        ? skills.map(s => '<div class="skill-tag">' + s + '</div>').join('')
+        : '<span style="font-size:13px;color:var(--text-muted)">No skills returned.</span>';
+
+      /* ── Chart ── */
+      const chartWrap = document.getElementById('chart-wrap');
+      const roleConfData = data.role_confidence && typeof data.role_confidence === 'object'
+        ? data.role_confidence : {};
+      const hasConfData = Object.keys(roleConfData).length > 0;
+      const hasBase64   = !!data.chart;
+
+      if (hasConfData || hasBase64) {
+        chartWrap.classList.add('show');
+
+        if (hasConfData) {
+          const sorted = Object.entries(roleConfData)
+            .map(([r, v]) => ({ role: r, val: Number(v) }))
+            .sort((a, b) => b.val - a.val);
+
+          lastSorted = sorted;
+          lastFmt    = fmt;
+          setTimeout(() => {
+            drawChart(document.getElementById('chart-canvas'), sorted, fmt, false);
+          }, 100);
+        }
+
+        if (hasBase64) {
+          const imgWrap = document.getElementById('chart-img-wrap');
+          const imgEl   = document.getElementById('chart-img');
+          imgEl.src = 'data:image/png;base64,' + data.chart;
+          imgWrap.classList.add('show');
+        }
+      } else {
+        chartWrap.classList.remove('show');
+      }
+
       results.classList.add('show');
       results.scrollIntoView({ behavior: 'smooth' });
     }
-    
+
+    /* ── Draw horizontal bar chart on a canvas ── */
+    function drawChart(canvas, sorted, fmt, isModal) {
+      const BAR_H     = isModal ? 36 : 28;
+      const GAP       = isModal ? 14 : 10;
+      const PAD_L     = isModal ? 180 : 140;
+      const PAD_R     = isModal ? 80  : 60;
+      const PAD_T     = isModal ? 30  : 20;
+      const PAD_B     = isModal ? 24  : 16;
+      const FONT_SZ   = isModal ? 13  : 11;
+      const VAL_SZ    = isModal ? 13  : 11;
+      const n         = sorted.length;
+      const W         = canvas.offsetWidth || (isModal ? 700 : 520);
+      const H         = PAD_T + n * BAR_H + (n - 1) * GAP + PAD_B;
+
+      canvas.width  = W * window.devicePixelRatio;
+      canvas.height = H * window.devicePixelRatio;
+      canvas.style.height = H + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      /* Background */
+      ctx.fillStyle = '#0a0a0f';
+      ctx.fillRect(0, 0, W, H);
+
+      const maxVal  = sorted[0].val;
+      const barW    = W - PAD_L - PAD_R;
+      const colors  = [
+        ['#f4b400','#e6a700'],
+        ['#8b5cf6','#a78bfa'],
+        ['#10b981','#34d399'],
+        ['#3b82f6','#60a5fa'],
+        ['#f97316','#fb923c'],
+        ['#ec4899','#f472b6'],
+      ];
+
+      sorted.forEach((item, i) => {
+        const y     = PAD_T + i * (BAR_H + GAP);
+        const pct   = maxVal > 0 ? item.val / maxVal : 0;
+        const fillW = Math.max(pct * barW, 2);
+        const [c1, c2] = colors[i % colors.length];
+        const isTop = i === 0;
+
+        /* Bar background track */
+        ctx.fillStyle = 'rgba(255,255,255,0.04)';
+        roundRect(ctx, PAD_L, y, barW, BAR_H, 6);
+        ctx.fill();
+
+        /* Gradient bar fill */
+        const grad = ctx.createLinearGradient(PAD_L, 0, PAD_L + fillW, 0);
+        grad.addColorStop(0, c1);
+        grad.addColorStop(1, c2);
+        ctx.fillStyle = grad;
+        roundRect(ctx, PAD_L, y, fillW, BAR_H, 6);
+        ctx.fill();
+
+        /* Glow for top bar */
+        if (isTop) {
+          ctx.shadowColor = c1;
+          ctx.shadowBlur  = 12;
+          roundRect(ctx, PAD_L, y, fillW, BAR_H, 6);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        /* Role label */
+        const label = fmt(item.role);
+        ctx.font      = (isTop ? 'bold ' : '') + FONT_SZ + 'px Inter, sans-serif';
+        ctx.fillStyle = isTop ? '#f0f0f0' : '#a0a0a0';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, PAD_L - 10, y + BAR_H / 2);
+
+        /* Score value */
+        ctx.font      = 'bold ' + VAL_SZ + 'px Inter, sans-serif';
+        ctx.fillStyle = isTop ? c1 : 'rgba(255,255,255,0.5)';
+        ctx.textAlign = 'left';
+        ctx.fillText(item.val.toFixed(2), PAD_L + fillW + 8, y + BAR_H / 2);
+
+        /* Crown for top */
+        if (isTop) {
+          ctx.font = (FONT_SZ + 2) + 'px sans-serif';
+          ctx.textAlign = 'right';
+          ctx.fillStyle = '#f4b400';
+          ctx.fillText('👑', PAD_L - (ctx.measureText(label).width + 18), y + BAR_H / 2);
+        }
+      });
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    /* ── Modal open/close ── */
+    let lastSorted = [];
+    let lastFmt    = s => s;
+
+    function openModal() {
+      if (!lastSorted.length) return;
+      document.getElementById('chart-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        drawChart(document.getElementById('chart-canvas-modal'), lastSorted, lastFmt, true);
+      }, 60);
+    }
+
+    function closeModal() {
+      document.getElementById('chart-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('chart-expand-btn').addEventListener('click', openModal);
+    document.getElementById('chart-canvas-wrap').addEventListener('click', openModal);
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('chart-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('chart-modal')) closeModal();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* Patch displayResults to store sorted/fmt for modal reuse */
+    const _origDisplay = displayResults;
+    function patchedDisplay(data) { _origDisplay(data); }
+
     function showError(msg) {
-      errorMsg.textContent = msg;
+      errorMsg.textContent   = msg;
       errorMsg.style.display = 'block';
     }
-    
+
     function hideError() {
       errorMsg.style.display = 'none';
     }

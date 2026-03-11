@@ -1,0 +1,270 @@
+text,role
+django python rest api backend development,web_backend
+express nodejs mongodb api backend,web_backend
+spring boot java microservices backend,web_backend
+laravel php mysql backend development,web_backend
+flask python postgresql rest api backend,web_backend
+nodejs express mongodb restful api,web_backend
+asp.net c# sql server backend api,web_backend
+ruby on rails postgresql backend development,web_backend
+fastapi python async backend rest,web_backend
+java spring boot hibernate mysql backend,web_backend
+grpc microservices docker backend python,web_backend
+nestjs typescript nodejs backend api,web_backend
+koa nodejs redis backend rest api,web_backend
+golang backend rest api postgresql,web_backend
+php laravel mysql rest api backend,web_backend
+react javascript frontend ui components,frontend
+angular typescript frontend web development,frontend
+vue.js javascript frontend spa components,frontend
+html css javascript responsive design frontend,frontend
+nextjs react typescript frontend web,frontend
+svelte javascript frontend ui web,frontend
+redux react state management frontend,frontend
+tailwind css bootstrap html frontend design,frontend
+webpack babel javascript frontend build,frontend
+jquery html css dom manipulation frontend,frontend
+react hooks context api frontend javascript,frontend
+material ui react frontend component design,frontend
+sass scss css frontend styling design,frontend
+figma react frontend ui design components,frontend
+typescript react nextjs frontend development,frontend
+tensorflow pytorch machine learning python,data_scientist
+scikit-learn pandas numpy machine learning,data_scientist
+deep learning neural networks keras python,data_scientist
+natural language processing nlp python spacy,data_scientist
+computer vision opencv pytorch image recognition,data_scientist
+data analysis pandas matplotlib seaborn python,data_scientist
+random forest xgboost classification prediction,data_scientist
+regression clustering statistics machine learning,data_scientist
+time series forecasting python statsmodels,data_scientist
+huggingface transformers bert nlp text classification,data_scientist
+feature engineering model training scikit-learn,data_scientist
+data mining statistical analysis hypothesis testing,data_scientist
+reinforcement learning gym openai python,data_scientist
+recommendation system collaborative filtering python,data_scientist
+a/b testing statistical analysis python scipy,data_scientist
+docker kubernetes devops ci/cd jenkins,devops
+terraform ansible aws infrastructure devops,devops
+github actions gitlab ci jenkins pipeline devops,devops
+linux bash scripting automation devops,devops
+kubernetes helm docker containerization devops,devops
+prometheus grafana monitoring devops observability,devops
+aws azure gcp cloud devops infrastructure,devops
+nginx apache load balancing devops deployment,devops
+puppet chef ansible configuration management devops,devops
+circleci travis ci pipeline automation devops,devops
+elk stack logging monitoring devops kibana,devops
+istio service mesh kubernetes microservices devops,devops
+devsecops security scanning pipeline devops,devops
+git gitlab branching strategy devops workflow,devops
+shell scripting python automation devops linux,devops
+aws ec2 s3 lambda cloud architecture,cloud_engineer
+azure virtual machines blob storage cloud,cloud_engineer
+gcp google cloud kubernetes engine cloud,cloud_engineer
+terraform cloudformation infrastructure as code cloud,cloud_engineer
+serverless lambda azure functions cloud computing,cloud_engineer
+aws rds dynamodb database cloud services,cloud_engineer
+cloud security iam roles policies aws azure,cloud_engineer
+multi cloud architecture aws azure gcp,cloud_engineer
+aws sagemaker machine learning cloud deployment,cloud_engineer
+azure devops pipelines cloud ci/cd,cloud_engineer
+google cloud bigquery data warehouse cloud,cloud_engineer
+aws eks kubernetes cloud container orchestration,cloud_engineer
+cloud networking vpc subnets routing aws,cloud_engineer
+aws sns sqs messaging cloud microservices,cloud_engineer
+azure active directory identity management cloud,cloud_engineer
+android java kotlin mobile app development,mobile_developer
+ios swift swiftui mobile app development,mobile_developer
+flutter dart cross platform mobile development,mobile_developer
+react native javascript mobile app development,mobile_developer
+android studio firebase mobile push notifications,mobile_developer
+kotlin coroutines android mobile development,mobile_developer
+swift uikit ios mobile app development,mobile_developer
+xamarin c# cross platform mobile development,mobile_developer
+ionic angular mobile hybrid app development,mobile_developer
+flutter bloc state management mobile dart,mobile_developer
+android mvvm architecture mobile development,mobile_developer
+ios core data sqlite mobile database,mobile_developer
+react native redux mobile state management,mobile_developer
+flutter firebase mobile backend integration,mobile_developer
+kotlin android jetpack compose mobile ui,mobile_developer
+cybersecurity penetration testing ethical hacking,cybersecurity
+network security firewall intrusion detection,cybersecurity
+vulnerability assessment siem incident response,cybersecurity
+kali linux metasploit ethical hacking tools,cybersecurity
+owasp web application security testing,cybersecurity
+forensics malware analysis reverse engineering,cybersecurity
+encryption cryptography ssl tls security,cybersecurity
+soc threat analysis security operations,cybersecurity
+burp suite nmap wireshark security tools,cybersecurity
+cissp ceh security certification compliance,cybersecurity
+zero trust identity management oauth security,cybersecurity
+gdpr hipaa compliance information security,cybersecurity
+cloud security aws azure security best practices,cybersecurity
+application security code review devsecops,cybersecurity
+ransomware analysis incident response forensics,cybersecurity
+apache spark hadoop data engineering pipeline,data_engineer
+kafka data streaming pipeline real time,data_engineer
+airflow etl pipeline data orchestration,data_engineer
+snowflake bigquery data warehouse sql,data_engineer
+databricks pyspark data lake processing,data_engineer
+dbt data transformation sql analytics,data_engineer
+hadoop hive pig big data processing,data_engineer
+kafka flink stream processing data pipeline,data_engineer
+redshift postgresql data warehouse etl,data_engineer
+data modeling schema design sql data engineer,data_engineer
+delta lake data lakehouse databricks spark,data_engineer
+aws glue s3 data lake pipeline etl,data_engineer
+google dataflow bigquery data engineering,data_engineer
+azure synapse data factory pipeline etl,data_engineer
+python pandas sql data pipeline automation,data_engineer
+sql mysql postgresql database administration,database_admin
+oracle dba database performance tuning,database_admin
+mongodb nosql database administration indexing,database_admin
+postgresql stored procedures triggers optimization,database_admin
+database backup recovery replication mysql,database_admin
+query optimization indexing database performance,database_admin
+redis caching database performance optimization,database_admin
+cassandra nosql distributed database admin,database_admin
+sql server mssql database administration,database_admin
+database schema design normalization sql,database_admin
+mysql replication clustering high availability,database_admin
+oracle rac database clustering administration,database_admin
+database security encryption access control,database_admin
+elasticsearch indexing search database admin,database_admin
+database migration version control flyway,database_admin
+figma ui ux design wireframe prototype,ui_ux_designer
+sketch adobe xd user interface design,ui_ux_designer
+user research usability testing ux design,ui_ux_designer
+design system component library figma,ui_ux_designer
+invision zeplin prototype ui design handoff,ui_ux_designer
+photoshop illustrator visual design ui,ui_ux_designer
+wireframing prototyping user experience design,ui_ux_designer
+typography color theory visual hierarchy design,ui_ux_designer
+accessibility wcag ui ux inclusive design,ui_ux_designer
+motion design after effects ui animation,ui_ux_designer
+user journey mapping ux research design,ui_ux_designer
+responsive design mobile first ui ux,ui_ux_designer
+design thinking user centered design ux,ui_ux_designer
+canva miro design collaboration ui,ui_ux_designer
+branding identity design visual communication,ui_ux_designer
+solidity ethereum smart contracts blockchain,blockchain_developer
+web3 defi nft blockchain development,blockchain_developer
+truffle hardhat ethereum development tools,blockchain_developer
+polygon solana rust blockchain development,blockchain_developer
+metamask ipfs decentralized application dapp,blockchain_developer
+chainlink oracle smart contract blockchain,blockchain_developer
+hyperledger enterprise blockchain development,blockchain_developer
+bitcoin lightning network blockchain development,blockchain_developer
+defi yield farming liquidity pool blockchain,blockchain_developer
+nft marketplace solidity smart contract,blockchain_developer
+web3.js ethers.js blockchain frontend,blockchain_developer
+consensus algorithms proof of stake blockchain,blockchain_developer
+rust solana anchor blockchain development,blockchain_developer
+cross chain bridge blockchain interoperability,blockchain_developer
+dao governance smart contract blockchain,blockchain_developer
+llm gpt langchain ai engineer nlp,ai_engineer
+huggingface transformers fine tuning llm,ai_engineer
+openai api chatgpt integration ai development,ai_engineer
+rag retrieval augmented generation vector database,ai_engineer
+prompt engineering llm optimization ai,ai_engineer
+mlops model deployment monitoring ai engineer,ai_engineer
+stable diffusion generative ai image model,ai_engineer
+vector database pinecone weaviate ai search,ai_engineer
+llamaindex langchain document qa ai,ai_engineer
+bert gpt fine tuning nlp ai engineer,ai_engineer
+ai chatbot development rasa dialogflow,ai_engineer
+multimodal ai vision language model,ai_engineer
+reinforcement learning from human feedback rlhf,ai_engineer
+ai model evaluation benchmarking testing,ai_engineer
+autonomous agents langchain tools ai engineer,ai_engineer
+mlops mlflow kubeflow model deployment,ml_engineer
+model serving fastapi tensorflow serving,ml_engineer
+feature store feast mlops pipeline,ml_engineer
+model monitoring drift detection mlops,ml_engineer
+docker kubernetes ml model deployment,ml_engineer
+a/b testing model evaluation ml engineer,ml_engineer
+tensorflow pytorch model optimization deployment,ml_engineer
+ci/cd machine learning pipeline automation,ml_engineer
+data versioning dvc mlops pipeline,ml_engineer
+model compression quantization edge deployment,ml_engineer
+spark ml distributed training pipeline,ml_engineer
+airflow kubeflow pipeline orchestration ml,ml_engineer
+gpu training optimization pytorch cuda,ml_engineer
+model registry mlflow experiment tracking,ml_engineer
+rest api fastapi ml model serving deployment,ml_engineer
+power bi tableau business intelligence analyst,business_analyst
+excel sql data analysis business analyst,business_analyst
+requirements gathering stakeholder management analysis,business_analyst
+agile scrum jira project business analyst,business_analyst
+process improvement workflow documentation analysis,business_analyst
+data visualization reporting kpi dashboard,business_analyst
+sql data querying analysis business reporting,business_analyst
+looker metabase business intelligence reporting,business_analyst
+risk analysis business case documentation,business_analyst
+erp sap oracle business process analyst,business_analyst
+user stories acceptance criteria agile analyst,business_analyst
+market research competitive analysis business,business_analyst
+financial analysis modeling excel business,business_analyst
+product roadmap backlog management analyst,business_analyst
+change management process optimization business,business_analyst
+recruitment talent acquisition hr management,hr_manager
+employee relations onboarding hr management,hr_manager
+payroll compensation benefits hr administration,hr_manager
+performance management appraisal hr system,hr_manager
+hrms workday sap hr software management,hr_manager
+training development learning hr management,hr_manager
+labor law compliance hr policy management,hr_manager
+diversity inclusion hr culture management,hr_manager
+succession planning talent management hr,hr_manager
+employee engagement retention hr strategy,hr_manager
+conflict resolution mediation hr management,hr_manager
+hr analytics data driven workforce management,hr_manager
+organizational development hr change management,hr_manager
+workforce planning hr strategy management,hr_manager
+employer branding recruitment hr marketing,hr_manager
+project management agile scrum pmp leadership,project_manager
+jira confluence project tracking management,project_manager
+risk management budget planning project delivery,project_manager
+stakeholder communication project manager,project_manager
+waterfall agile hybrid project methodology,project_manager
+resource planning team management project,project_manager
+scope management change control project,project_manager
+project scheduling gantt chart timeline management,project_manager
+cross functional team leadership project delivery,project_manager
+kpi tracking milestone reporting project manager,project_manager
+vendor management contract project delivery,project_manager
+agile coaching scrum master project management,project_manager
+program management portfolio project delivery,project_manager
+quality assurance testing project management,project_manager
+pmp prince2 project management certification,project_manager
+java oop design patterns software engineering,software_engineer
+c++ algorithms data structures software development,software_engineer
+python software engineering testing deployment,software_engineer
+agile tdd unit testing software engineer,software_engineer
+microservices architecture software design patterns,software_engineer
+code review git version control software,software_engineer
+api development integration software engineering,software_engineer
+object oriented programming solid principles,software_engineer
+software architecture system design scalability,software_engineer
+ci/cd testing automation software delivery,software_engineer
+kotlin java backend software engineering,software_engineer
+golang concurrency software engineering backend,software_engineer
+rust systems programming software engineer,software_engineer
+scala functional programming software engineer,software_engineer
+software testing debugging performance optimization,software_engineer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
