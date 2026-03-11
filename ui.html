@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ResumeIQ — Quick Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg: #0a0a0f;
+      --card: #111118;
+      --border: rgba(255,255,255,0.08);
+      --gold: #f4b400;
+      --text: #f0f0f0;
+      --text-muted: #a0a0a0;
+      --green: #10b981;
+      --purple: #8b5cf6;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container { max-width: 600px; margin: 0 auto; }
+    
+    h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), #f4b400);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    
+    .drop-zone {
+      background: var(--card);
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+    
+    .drop-zone:hover { 
+      border-color: var(--gold);
+      background: rgba(244,180,0,0.05);
+    }
+    
+    .drop-zone.dragover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(244,180,0,0.2);
+    }
+    
+    .upload-icon { font-size: 48px; margin-bottom: 16px; }
+    
+    .drop-zone h3 { 
+      font-size: 20px; 
+      font-weight: 600; 
+      margin-bottom: 8px;
+    }
+    
+    .drop-zone p { 
+      color: var(--text-muted); 
+      font-size: 14px;
+    }
+    
+    #file-input { display: none; }
+    
+    .btn-analyze {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold), #e6a700);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+    }
+    
+    .btn-analyze:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(244,180,0,0.3); }
+    
+    .results { 
+      display: none; 
+      background: var(--card); 
+      border-radius: 20px; 
+      padding: 32px; 
+      margin-top: 24px;
+      border: 1px solid var(--border);
+    }
+    
+    .results.show { display: block; animation: slideUp 0.5s ease; }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .result-row:last-child { border-bottom: none; padding-bottom: 0; }
+    
+    .result-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .result-value {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .role-display {
+      background: linear-gradient(135deg, var(--purple), #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .confidence {
+      background: rgba(16,185,129,0.15);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .skill-tag {
+      background: rgba(244,180,0,0.15);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .error {
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+    
+    @media (max-width: 480px) {
+      .result-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .result-value { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Resume<span style="color: var(--gold);">IQ</span></h1>
+    <p class="subtitle">Drop your resume for instant AI analysis</p>
+    
+    <div class="drop-zone" id="dropZone">
+      <div class="upload-icon">📄</div>
+      <h3>Drop resume here</h3>
+      <p>PDF, DOC, DOCX, TXT • Click to browse</p>
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+    </div>
+    
+    <button class="btn-analyze" id="analyzeBtn">✦ Analyze Resume ✦</button>
+    
+    <div class="error" id="errorMsg"></div>
+    
+    <div class="results" id="results">
+      <div class="result-row">
+        <span class="result-label">Filename</span>
+        <span class="result-value" id="filename">--</span>
+      </div>
+      
+      <div class="result-row">
+        <span class="result-label">Predicted Role</span>
+        <span class="result-value role-display" id="role">--</span>
+      </div>
+      
+      <div class="result-row">
+        <span class="result-label">Confidence</span>
+        <span class="result-value confidence" id="confidence">--</span>
+      </div>
+      
+      <div class="result-row">
+        <span class="result-label">Skills Found</span>
+        <span class="result-value" id="skillsCount">--</span>
+      </div>
+      
+      <div class="skills-grid" id="skillsList"></div>
+    </div>
+  </div>
+
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const results = document.getElementById('results');
+    const errorMsg = document.getElementById('errorMsg');
+    
+    let selectedFile = null;
+    
+    // Drop zone events
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file && isValidFile(file)) handleFile(file);
+    });
+    
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) handleFile(fileInput.files[0]);
+    });
+    
+    function isValidFile(file) {
+      const validTypes = ['.pdf', '.doc', '.docx', '.txt'];
+      return validTypes.some(type => file.name.toLowerCase().endsWith(type.slice(1)));
+    }
+    
+    function handleFile(file) {
+      selectedFile = file;
+      analyzeBtn.style.display = 'block';
+      hideError();
+      results.classList.remove('show');
+    }
+    
+    analyzeBtn.addEventListener('click', async () => {
+      if (!selectedFile) return;
+      
+      analyzeBtn.disabled = true;
+      analyzeBtn.textContent = 'Analyzing...';
+      hideError();
+      results.classList.remove('show');
+      
+      try {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        
+        const response = await fetch('http://127.0.0.1:8081/upload', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) throw new Error('Server error');
+        
+        const data = await response.json();
+        displayResults(data);
+        
+      } catch (error) {
+        showError('Failed to analyze. Is server running on port 8081?');
+      } finally {
+        analyzeBtn.disabled = false;
+        analyzeBtn.textContent = '✦ Analyze Resume ✦';
+      }
+    });
+    
+    function displayResults(data) {
+      document.getElementById('filename').textContent = data.filename || 'Unknown';
+      document.getElementById('role').textContent = data.predicted_role || 'Not detected';
+      
+      const confidence = data.role_confidence ? 
+        Object.values(data.role_confidence)[0]?.toFixed(1) + '%' : '--';
+      document.getElementById('confidence').textContent = confidence;
+      
+      const skills = data.skills_found || [];
+      document.getElementById('skillsCount').textContent = skills.length + ' skills';
+      
+      const skillsList = document.getElementById('skillsList');
+      skillsList.innerHTML = skills.map(skill => 
+        `<div class="skill-tag">${skill}</div>`
+      ).join('');
+      
+      results.classList.add('show');
+      results.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+    }
+    
+    function hideError() {
+      errorMsg.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
